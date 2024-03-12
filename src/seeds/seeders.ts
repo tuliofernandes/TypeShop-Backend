@@ -1,25 +1,23 @@
 import connectDb from '../config/db';
 import Product from '../models/productModel';
-import colors from 'colors';
 import products from './products';
 import dotenv from 'dotenv';
 dotenv.config();
 
 
-connectDb();
+// connectDb();
 
 const importData = async () => {
   try {
-    await Product.deleteMany();
-
+    await Product.deleteMany({});
     await Product.insertMany(products);
 
-    console.log('Data Imported!'.green.inverse);
+    console.log('Data Imported!');
     process.exit();
   } catch (error) {
-    console.error(`${error}`.red.inverse);
+    console.error(`${error}`);
     process.exit(1);
   }
 };
 
-importData();
+connectDb().then(importData)

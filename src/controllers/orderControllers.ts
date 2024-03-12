@@ -76,7 +76,7 @@ export const deleteOrder = asyncHandler(async (req: Request, res: Response) => {
   const order = await Order.findById(req.params.id);
 
   if (order) {
-    await order.remove();
+    await order.deleteOne(order.id);
     res.status(200).json("order has been deleted");
   } else {
     res.status(400);
